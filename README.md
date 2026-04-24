@@ -1,3 +1,27 @@
+# Installation
+## Set up of the project:
+first make sure that you get your user id and group id via commands:
+`id -g` and `id -u` and set those value to .env file, 
+
+example:
+
+```
+//.env
+export USER_ID=1000 // result of id -u
+export GROUP_ID=1000 // result of id -g
+```
+
+## To startup and serve the project:
+
+run: `docker-compose up -d`
+
+access on: `http://localhost:5173/`
+
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

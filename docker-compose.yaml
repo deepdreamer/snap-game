@@ -1,5 +1,6 @@
 services:
   app-dev:
+    user: "${USER_ID}:${GROUP_ID}"
     image: node:24-alpine
     working_dir: /app
     volumes:

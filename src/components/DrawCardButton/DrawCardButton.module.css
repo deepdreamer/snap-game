@@ -1,0 +1,25 @@
+.drawCardButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.drawCardButton {
+    padding: 1em 2.2em;
+    border-radius: 10px;
+    border: 1px solid var(--gray);
+    background-color: var(--blue);
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+}
+
+.drawCardButton:hover {
+  cursor: pointer;
+  background-color: var(--blue-active);
+}
+
+
+.drawCardButton:active {
+  transform: scale(0.97); 
+}

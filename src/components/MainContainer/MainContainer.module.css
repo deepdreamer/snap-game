@@ -1,0 +1,10 @@
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 1px solid black;
+    width: 35vw;
+    height: 80vh;
+    align-items: center;
+}

@@ -1,55 +1,62 @@
 import React, { useState } from 'react';
 import styles from './DrawCardButton.module.css';
+import { useCardGameContext } from '../../context/CardGameContext.js';
+import { DrawCardResponse, fetchDrawCards, fetchNewDeck, ShuffledDeckResponse } from '../../services/DeckOfCardsApi';
 
-interface ShuffledDeckResponse {
-    success: boolean;
-    deck_id: string;
-    shuffled: boolean;
-    remaining: number;
-}
 
 export default function DrawCardButton(): React.ReactElement {
-    const [deck, setResponse] = useState<ShuffledDeckResponse | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isInitialized, setIsInitialized] = useState(false);
+    const { state, setState } = useCardGameContext();
+    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
-    function drawCard(): void
+    async function initOrDrawCard(): Promise<void>
     {
-         if (isSubmitting) return;
+        if (isButtonDisabled) return;
 
-         if (!isInitialized) {
-            initShuffledDeckOfCards();
-         }
+        setButtonDisabled(true);
+        let deckId = state.deck_id;
+        if (deckId === null) {
+            deckId = await initShuffledDeckOfCards();
+        }
 
+        await drawCard(deckId);
+
+
+        setButtonDisabled(false);
 
     }
 
-    async function initShuffledDeckOfCards(): Promise<ShuffledDeckResponse> {
-       
+    async function drawCard(deckId: string): Promise<void>
+    {
+        const newCard: DrawCardResponse = await fetchDrawCards(deckId, 1);
 
-        const url = `${import.meta.env.VITE_API_BASE_URL}/api/deck/new/shuffle/?deck_count=1`;
+        setState(prev => ({ 
+            ...prev, 
+            deck_id: newCard.deck_id, 
+            remaining: newCard.remaining, 
+            previousDrawnCard: state.currentDrawnCard, 
+            currentDrawnCard: newCard.cards[0] 
+        }));
 
-        setIsSubmitting(true);
-        const response = await fetch(url);
+    }
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch card: ${response.status} ${response.statusText}`);
-        }
+    async function initShuffledDeckOfCards(): Promise<string> {
 
-        setIsSubmitting(false);
+        const newDeck: ShuffledDeckResponse = await fetchNewDeck();
         
+        setState(prev => ({ 
+            ...prev, 
+            deck_id: newDeck.deck_id, 
+            remaining: newDeck.remaining, 
+            shuffled: true 
+        }));
 
-        const deck: ShuffledDeckResponse = JSON.parse(await response.text());
+        return newDeck.deck_id;
 
-        setResponse(deck);
-        setIsInitialized(true);
-
-        return deck;
     }
 
     return (
-        <div className={styles.drawCardButtonContainer} onClick={drawCard}>
-            <button disabled={isSubmitting} className={styles.drawCardButton}>
+        <div className={styles.drawCardButtonContainer} onClick={initOrDrawCard}>
+            <button disabled={isButtonDisabled} className={styles.drawCardButton}>
             Draw card
             </button>
         </div>

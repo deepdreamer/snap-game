@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 
 createRoot(document.getElementById('root') as HTMLDivElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    <StrictMode>
+        <App />
+    </StrictMode>,
 )

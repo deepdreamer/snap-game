@@ -2,6 +2,9 @@
 
 A card game built with React and TypeScript. Draw cards from a shuffled deck and score points when consecutive cards share the same value or suit.
 
+## Last build is hosted as demo:
+https://lighthearted-cupcake-5b501b.netlify.app/
+
 ## Tech stack
 
 - React 19 + TypeScript

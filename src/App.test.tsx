@@ -140,3 +140,49 @@ it('test that final score makes sense for suits', async () => {
     await waitFor(() => expect(screen.getByText('Value matches: 0')).toBeInTheDocument());
     await waitFor(() => expect(screen.getByText('Suit matches: 1')).toBeInTheDocument());
 });
+
+it('test that final score makes sense over all', async () => {
+    mockNewDeck();
+    
+
+    render(<App />);
+
+    // first click
+    mockDrawCard('ACE', 'CLUBS', 6);
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Draw card' })).not.toBeDisabled());
+
+    // second click
+    mockDrawCard('2', 'CLUBS', 5);
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Draw card' })).not.toBeDisabled());
+
+    // third click
+    mockDrawCard('3', 'CLUBS', 4);
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Draw card' })).not.toBeDisabled());
+
+    // forth click
+    mockDrawCard('2', 'HEARTS', 3);
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Draw card' })).not.toBeDisabled());
+
+    // fivth click
+    mockDrawCard('2', 'SPADES', 2);
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Draw card' })).not.toBeDisabled());
+
+    // sixth click
+    mockDrawCard('6', 'SPADES', 1);
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Draw card' })).not.toBeDisabled());
+
+    // seventh click, deck exhausted
+    mockDrawCard('6', 'SPADES', 0); // this is edge case that is not covered, both cards math with suit and value !!!!
+    fireEvent.click(screen.getByText('Draw card'));
+    await waitFor(() => expect(screen.queryByRole('button', { name: 'Draw card' })).not.toBeInTheDocument()); // button is not visible anymore
+
+    await waitFor(() => expect(screen.getByText('Value matches: 1')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Suit matches: 3')).toBeInTheDocument());
+});
+

@@ -1,0 +1,33 @@
+.heading {
+    display: flex;
+    width: 100%;
+    padding: 0.2em;
+    margin-top: -1.2em;
+    color: gray;
+    border: 1px solid gray;
+}
+
+.headingButtons {
+    display: flex;
+}
+
+.logoText {
+    width: 58%;
+}
+
+.headingButtons .button {
+    border: 2px solid gray;
+    width: 20px;
+    height: 20px;
+    margin: 0.1em;
+    border-radius: 50%;
+}
+
+.headingButtons .blueButton {
+    border-color: #1897ff;
+}
+
+
+.remainingCount {
+
+}

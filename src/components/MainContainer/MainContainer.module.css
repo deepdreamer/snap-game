@@ -4,7 +4,8 @@
     flex-wrap: wrap;
     justify-content: space-around;
     border: 1px solid black;
-    width: 35vw;
-    height: 92vh;
+    width: 700px;
+    height: 600px;
+    padding-bottom: 4em;
     align-items: center;
 }

@@ -6,6 +6,7 @@ import DrawCardButton from './components/DrawCardButton/DrawCardButton';
 import { CardGameContext } from './context/CardGameContext';
 import { CardSuit, CardValue } from './services/DeckOfCardsApi';
 import MatchMessage from './components/MatchMessage/MatchMessage';
+import Heading from './components/Heading/Heading';
 
 export interface GameState {
     deck_id: string | null;
@@ -41,6 +42,7 @@ function App(): React.ReactElement {
         <>
             <CardGameContext value={{ state: cardGameState, setState: setCardGameState }}>
                 <MainContainer>
+					<Heading />
 					<MatchMessage />
                     <Card url={cardGameState.previousDrawnCard?.image} />
                     <Card url={cardGameState.currentDrawnCard?.image} />

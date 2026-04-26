@@ -1,7 +1,17 @@
 .drawCardButtonContainer {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    text-align: center;
+}
+
+p {
+  width: 100%;
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .drawCardButton {

@@ -13,6 +13,7 @@ export default function DrawCardButton(): React.ReactElement {
         if (isButtonDisabled) return;
 
         setButtonDisabled(true);
+        setState(prev => ({ ...prev, previousDrawnCard: null, currentDrawnCard: null })); // remove stale cards
         let deckId = state.deck_id;
         if (deckId === null) {
             deckId = await initShuffledDeckOfCards();
@@ -28,8 +29,16 @@ export default function DrawCardButton(): React.ReactElement {
     async function drawCard(deckId: string): Promise<void>
     {
         const newCard: DrawCardResponse = await fetchDrawCards(deckId, 1);
-        const valueMatch = state.previousDrawnCard?.value === newCard.cards[0].value;
-        const suitMatch = state.previousDrawnCard?.suit === newCard.cards[0].suit;
+        
+        let valueMatch = false; 
+        let suitMatch = false;
+        if (state.previousDrawnCard === null) {
+            valueMatch = state.currentDrawnCard?.value === newCard.cards[0].value;
+            suitMatch = state.currentDrawnCard?.suit === newCard.cards[0].suit;
+        } else {
+            valueMatch = state.previousDrawnCard.value === newCard.cards[0].value;
+            suitMatch = state.previousDrawnCard.suit === newCard.cards[0].suit;
+        }
 
         let valueMatchCount = state.valueMatchCount;
         let suitMatchCount = state.suitMatchCount;
@@ -67,7 +76,7 @@ export default function DrawCardButton(): React.ReactElement {
     }
 
     let content = (
-        <button disabled={isButtonDisabled} className={styles.drawCardButton}>
+        <button disabled={isButtonDisabled} className={styles.drawCardButton}  onClick={initOrDrawCard}>
             Draw card
         </button>
     );
@@ -82,7 +91,7 @@ export default function DrawCardButton(): React.ReactElement {
     } 
 
     return (
-        <div className={styles.drawCardButtonContainer} onClick={initOrDrawCard}>
+        <div className={styles.drawCardButtonContainer}>
             {content}
         </div>
     );

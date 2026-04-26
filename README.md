@@ -1,41 +1,46 @@
-# Installation
-## Set up of the project:
-first make sure that you get your user id and group id via commands:
-`id -g` and `id -u` and set those value to .env file, 
+# Frontend task assigment. A card game.
 
-example:
+A card game built with React and TypeScript. Draw cards from a shuffled deck and score points when consecutive cards share the same value or suit.
+
+## Tech stack
+
+- React 19 + TypeScript
+- Vite
+- [Deck of Cards API](https://deckofcardsapi.com)
+- Vitest + Testing Library + MSW for tests
+- Docker for local development
+
+## Getting started
+
+### 1. Configure environment
+
+Copy the example below into a `.env` file at the project root. Get your user and group IDs by running `id -u` and `id -g`:
 
 ```
-//.env
-export USER_ID=1000 // result of id -u
-export GROUP_ID=1000 // result of id -g
+USER_ID=1000
+GROUP_ID=1000
+VITE_API_BASE_URL=https://deckofcardsapi.com
 ```
 
-## To startup and serve the project:
+### 2. Start the dev server
 
-run: `docker-compose up -d`
+```
+docker compose up -d
+```
 
-access on: `http://localhost:5173/`
+App is available at `http://localhost:5173`
 
+### 3. Run tests
 
-## To run tests
-`docker compose run --rm app-dev npm test -- --run`
+```
+docker compose run --rm app-dev npm test -- --run
+```
 
+### 4. Build for production
 
+```
+docker compose run --rm app-dev npm run build
+```
 
-# React + Vite
+Output is written to `dist/`. Serve it with any static file host. If using Nginx, configure `try_files $uri /index.html` to support client-side routing.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

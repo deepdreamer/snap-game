@@ -4,6 +4,8 @@ import { setupServer } from 'msw/node';
 import App from './App';
 import { CardValue, CardSuit } from './services/DeckOfCardsApi';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const server = setupServer();
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -11,7 +13,7 @@ afterAll(() => server.close());
 
 function mockNewDeck(deckId = 'deck1', remaining = 52) {
     server.use(
-        http.get('*/deck/new/shuffle/*', () =>
+        http.get(`${BASE_URL}/api/deck/new/shuffle/`, () =>
             HttpResponse.json({ success: true, deck_id: deckId, shuffled: true, remaining })
         )
     );
@@ -19,7 +21,7 @@ function mockNewDeck(deckId = 'deck1', remaining = 52) {
 
 function mockDrawCard(value: CardValue, suit: CardSuit, remaining = 10) {
     server.use(
-        http.get('*/deck/*/draw/*', () =>
+        http.get(`${BASE_URL}/api/deck/:deckId/draw/`, () =>
             HttpResponse.json({
                 success: true,
                 deck_id: 'deck1',

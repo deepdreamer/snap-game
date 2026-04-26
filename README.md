@@ -15,7 +15,14 @@ https://lighthearted-cupcake-5b501b.netlify.app/
 
 ## Getting started
 
-### 1. Configure environment
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/deepdreamer/snap-game
+cd snap-game
+```
+
+### 2. Configure environment
 
 Copy the example below into a `.env` file at the project root. Get your user and group IDs by running `id -u` and `id -g`:
 
@@ -25,7 +32,7 @@ GROUP_ID=1000
 VITE_API_BASE_URL=https://deckofcardsapi.com
 ```
 
-### 2. Start the dev server
+### 3. Start the dev server
 
 ```
 docker compose up -d
@@ -33,13 +40,13 @@ docker compose up -d
 
 App is available at `http://localhost:5173`
 
-### 3. Run tests
+### 4. Run tests
 
 ```
 docker compose run --rm app-dev npm test -- --run
 ```
 
-### 4. Build for production
+### 5. Build for production
 
 ```
 docker compose run --rm app-dev npm run build

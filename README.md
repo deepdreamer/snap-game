@@ -18,7 +18,8 @@ run: `docker-compose up -d`
 access on: `http://localhost:5173/`
 
 
-
+## To run tests
+`docker compose run --rm app-dev npm test -- --run`
 
 
 

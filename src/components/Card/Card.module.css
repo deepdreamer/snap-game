@@ -1,5 +1,12 @@
 .card {
-    width: 223px;
-    height: 311px;
+    width: 224px;
+    height: 312px;
     border: 1px solid black;
+    position: relative;
+}
+
+.card img {
+    position: absolute;
+    left: -1px;
+    top: -1px;
 }

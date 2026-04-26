@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+    margin-top: 3em;
 }
 
 p {
@@ -22,7 +23,7 @@ p {
     font-size: 1.2em;
     font-weight: bold;
     color: white;
-    margin-top: 3em;
+    
 }
 
 .drawCardButton:hover {

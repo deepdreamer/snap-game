@@ -16,6 +16,7 @@ export interface GameState {
     currentDrawnCard: null | DrawnCard;
     valueMatchCount: number;
     suitMatchCount: number;
+    isLoading: boolean,
 }
 
 export interface DrawnCard {
@@ -33,6 +34,7 @@ function App(): React.ReactElement {
         currentDrawnCard: null,
         valueMatchCount: 0,
         suitMatchCount: 0,
+        isLoading: false,
     };
 
     const [cardGameState, setCardGameState] = useState<GameState>(defaultGameState);
@@ -46,6 +48,12 @@ function App(): React.ReactElement {
 					<MatchMessage />
                     <Card url={cardGameState.previousDrawnCard?.image} />
                     <Card url={cardGameState.currentDrawnCard?.image} />
+                    {cardGameState.isLoading ? <Spinner /> : (
+                        <>
+                            <Card url={cardGameState.previousDrawnCard?.image} />
+                            <Card url={cardGameState.currentDrawnCard?.image} />
+                        </>
+                    )}
                     <DrawCardButton />
                 </MainContainer>
             </CardGameContext>

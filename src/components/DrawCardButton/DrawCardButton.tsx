@@ -13,7 +13,7 @@ export default function DrawCardButton(): React.ReactElement {
         if (isButtonDisabled) return;
 
         setButtonDisabled(true);
-        setState(prev => ({ ...prev, previousDrawnCard: null, currentDrawnCard: null })); // remove stale cards
+        setState(prev => ({ ...prev, previousDrawnCard: null, currentDrawnCard: null, isLoading: true }));
         let deckId = state.deck_id;
         if (deckId === null) {
             deckId = await initShuffledDeckOfCards();
@@ -57,6 +57,7 @@ export default function DrawCardButton(): React.ReactElement {
             suitMatchCount: suitMatchCount,
             valueMatchCount: valueMatchCount,
         }));
+                isLoading: false,
 
     }
 

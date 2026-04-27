@@ -48,16 +48,27 @@ export default function DrawCardButton(): React.ReactElement {
             suitMatchCount++;
         }
 
-        setState(prev => ({ 
-            ...prev, 
-            deck_id: newCard.deck_id, 
-            remaining: newCard.remaining, 
-            previousDrawnCard: state.currentDrawnCard, 
-            currentDrawnCard: newCard.cards[0],
-            suitMatchCount: suitMatchCount,
-            valueMatchCount: valueMatchCount,
-        }));
+        setState(prev => {
+            const newCardData = newCard.cards[0];
+            const drawnCards = [...(prev.drawnCards ?? []), newCardData];
+
+            const valueCount = drawnCards.filter(c => c.value === newCardData.value).length; // max 4
+            const suitCount = drawnCards.filter(c => c.suit === newCardData.suit).length; // max 13
+
+            return {
+                ...prev,
+                deck_id: newCard.deck_id,
+                remaining: newCard.remaining,
+                previousDrawnCard: state.currentDrawnCard,
+                currentDrawnCard: newCardData,
+                suitMatchCount: suitMatchCount,
+                valueMatchCount: valueMatchCount,
+                drawnCards: drawnCards,
+                valueSnapLikelyhood: newCard.remaining > 0 ? parseFloat(((4 - valueCount) / newCard.remaining).toFixed(2)) : 0,
+                suitSnapLikelyhood: newCard.remaining > 0 ? parseFloat(((13 - suitCount) / newCard.remaining).toFixed(2)) : 0,
                 isLoading: false,
+            };
+        });
 
     }
 

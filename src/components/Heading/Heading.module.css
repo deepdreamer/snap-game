@@ -13,7 +13,7 @@
 }
 
 .logoText {
-    width: 58%;
+    width: 25%;
 }
 
 .headingButtons .button {
@@ -28,7 +28,15 @@
     border-color: #1897ff;
 }
 
-
 .remainingCount {
+    width: 60%;
+}
 
+.snapLikelyhood {
+    font-size: 0.7em;
+    margin-top: 0.6em;
+}
+
+.snapLikelyhood strong {
+    color: black;
 }

@@ -1,4 +1,5 @@
 import Card from './components/Card/Card';
+import Spinner from './components/Spinner/Spinner';
 import { useState } from 'react';
 import MainContainer from './components/MainContainer/MainContainer';
 import './App.css';
@@ -16,6 +17,9 @@ export interface GameState {
     currentDrawnCard: null | DrawnCard;
     valueMatchCount: number;
     suitMatchCount: number;
+    drawnCards: Array<DrawnCard> | null;
+    valueSnapLikelyhood: number,
+    suitSnapLikelyhood: number,
     isLoading: boolean,
 }
 
@@ -29,11 +33,14 @@ function App(): React.ReactElement {
     const defaultGameState: GameState = {
         deck_id: null,
         shuffled: false,
-        remaining: 0,
+        remaining: 52,
         previousDrawnCard: null,
         currentDrawnCard: null,
         valueMatchCount: 0,
         suitMatchCount: 0,
+        drawnCards: null,
+        valueSnapLikelyhood: parseFloat((1/13).toFixed(2)), // 4/52 (4 cards of given value / 52 cards total)
+        suitSnapLikelyhood: parseFloat((1/4).toFixed(2)), // 13/52 (13 cards of given suit / 52 cards total)
         isLoading: false,
     };
 
@@ -46,8 +53,6 @@ function App(): React.ReactElement {
                 <MainContainer>
 					<Heading />
 					<MatchMessage />
-                    <Card url={cardGameState.previousDrawnCard?.image} />
-                    <Card url={cardGameState.currentDrawnCard?.image} />
                     {cardGameState.isLoading ? <Spinner /> : (
                         <>
                             <Card url={cardGameState.previousDrawnCard?.image} />

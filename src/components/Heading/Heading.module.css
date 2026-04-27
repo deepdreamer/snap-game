@@ -3,9 +3,9 @@
     width: 100%;
     padding: 0.2em;
     align-self: start;
-    color: gray;
+    color: var(--gray);
     height: 27px;
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
 }
 
 .headingButtons {
@@ -17,7 +17,7 @@
 }
 
 .headingButtons .button {
-    border: 2px solid gray;
+    border: 2px solid var(--gray);
     width: 20px;
     height: 20px;
     margin: 0.1em;
@@ -25,7 +25,7 @@
 }
 
 .headingButtons .blueButton {
-    border-color: #1897ff;
+    border-color: var(--blue-light);
 }
 
 .remainingCount {
@@ -38,5 +38,5 @@
 }
 
 .snapLikelyhood strong {
-    color: black;
+    color: var(--black);
 }
